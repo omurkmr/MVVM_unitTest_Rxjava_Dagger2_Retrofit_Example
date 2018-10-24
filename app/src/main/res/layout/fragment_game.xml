@@ -1,14 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.game.GameFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="ui.game.GameFragment"
+    android:paddingLeft="10dp"
+    android:paddingTop="10dp"
+    android:paddingRight="10dp">
 
-    <!-- TODO: Update blank fragment layout -->
+
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/esp_word_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/english_word_textview"
+        android:layout_marginTop="10dp"
+        tools:text="ESPTestText"
+        android:src="@mipmap/ic_launcher" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/english_word_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="EnglishTextTest"
+        android:layout_below="@+id/score_textview"
+        android:layout_centerHorizontal="true"
+        android:textSize="18sp"
+        />
+
+
+    <TextView
+        android:id="@+id/score_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Score : "
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        />
+
+    <TextView
+        android:id="@+id/score_count_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="14"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/score_textview"
+        android:layout_toRightOf="@+id/score_textview"/>
+
+
+    <TextView
+        android:id="@+id/remaining_life_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Remaining Life : "
+        android:layout_toLeftOf="@+id/remaining_life_count_textview"
+        android:layout_alignParentTop="true"
+        />
+
+    <TextView
+        android:id="@+id/remaining_life_count_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/correct_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/ic_correct"
+        app:backgroundTint="@android:color/holo_green_dark"
+        android:layout_margin="16dp" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/wrong_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/ic_wrong"
+        app:backgroundTint="@android:color/holo_red_dark"
+        android:layout_margin="16dp" />
+
+</RelativeLayout>
