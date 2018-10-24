@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,8 +17,12 @@ import android.widget.Toast;
 import com.challenge.omurkumru.babbel.Application;
 import com.challenge.omurkumru.babbel.R;
 import com.challenge.omurkumru.babbel.di.AppComponent;
+import com.challenge.omurkumru.babbel.model.Word;
+import com.challenge.omurkumru.babbel.ui.game.GameFragment;
 import com.challenge.omurkumru.babbel.utils.ViewModelFactory;
 import com.challenge.omurkumru.babbel.utils.networking.ApiResponse;
+
+import java.util.ArrayList;
 
 import javax.inject.Inject;
 
@@ -98,6 +103,18 @@ public class EntranceFragment extends Fragment {
             case SUCCESS:
                 Log.i(TAG,"success");
                 progress.dismiss();
+
+                ArrayList<Word> wordList = new ArrayList<>(apiResponse.data.size());
+                wordList.addAll(apiResponse.data);
+
+                Bundle bundle = new Bundle();
+                bundle.putParcelableArrayList("wordsArray", wordList);
+
+                Fragment gameFragment = new GameFragment();
+                gameFragment.setArguments(bundle);
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment_container, gameFragment );
+                transaction.commit();
                 break;
 
             case ERROR:

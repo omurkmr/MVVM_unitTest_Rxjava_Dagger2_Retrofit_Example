@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModelProvider;
 import android.content.Context;
 
 import com.challenge.omurkumru.babbel.ui.entrance.EntranceRepository;
+import com.challenge.omurkumru.babbel.ui.game.GameRepository;
 import com.challenge.omurkumru.babbel.utils.ViewModelFactory;
 import com.challenge.omurkumru.babbel.utils.networking.RetrofitAPI;
 import com.challenge.omurkumru.babbel.utils.networking.Urls;
@@ -28,6 +29,12 @@ public class UtilsModule {
     @Singleton
     EntranceRepository provideEntranceRepository(RetrofitAPI retrofitAPI) {
         return new EntranceRepository(retrofitAPI);
+    }
+
+    @Provides
+    @Singleton
+    GameRepository provideGameRepository() {
+        return new GameRepository();
     }
 
     @Provides
@@ -69,7 +76,8 @@ public class UtilsModule {
 
     @Provides
     @Singleton
-    ViewModelProvider.Factory provideViewModelFactory(Context context, EntranceRepository entranceRepository) {
-        return new ViewModelFactory(context, entranceRepository);
+    ViewModelProvider.Factory provideViewModelFactory(Context context, EntranceRepository entranceRepository,
+                                                      GameRepository gameRepository) {
+        return new ViewModelFactory(context, entranceRepository, gameRepository);
     }
 }
