@@ -14,13 +14,16 @@ public class GameViewModel extends ViewModel {
 
     private GameRepository repository;
 
+    public final int startLife = 3;
+    public final int startScore = 0;
+
     private MutableLiveData<Integer> remainingLife = new MutableLiveData<>();;
     private MutableLiveData<Integer> score = new MutableLiveData<>();
 
     public GameViewModel (GameRepository repository) {
         this.repository = repository;
-        remainingLife.setValue(3);
-        score.setValue(0);
+        remainingLife.setValue(startLife);
+        score.setValue(startScore);
     }
 
     /**

@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.challenge.omurkumru.babbel.Application;
 import com.challenge.omurkumru.babbel.R;
@@ -95,8 +96,11 @@ public class GameFragment extends Fragment implements Animation.AnimationListene
 
         viewModel.getRemainingLife().observe(this, remainingLife -> {
 
-            if (remainingLife > 0) {
-                remainingLifeCountTextView.setText(String.valueOf(remainingLife));
+            remainingLifeCountTextView.setText(String.valueOf(remainingLife));
+
+            if (remainingLife == viewModel.startLife) {
+                Toast.makeText(getContext(), "Welcome to game", Toast.LENGTH_SHORT).show();
+            } else if (remainingLife > 0) {
                 setNewWord();
             } else {
                 correctButton.setClickable(false);
@@ -108,13 +112,10 @@ public class GameFragment extends Fragment implements Animation.AnimationListene
 
         viewModel.getScore().observe(this, score -> {
             scoreCountTextView.setText(String.valueOf(score));
-            setNewWord();
+            if (score != viewModel.startScore) {
+                setNewWord();
+            }
         });
-
-        animation = AnimationUtils.loadAnimation(getContext(),
-                R.anim.move);
-
-        animation.setAnimationListener(this);
 
         setNewWord();
     }
@@ -154,6 +155,11 @@ public class GameFragment extends Fragment implements Animation.AnimationListene
     }
 
     private void startWordAnimation() {
+        //setting new animation prevents double trigger
+        animation = AnimationUtils.loadAnimation(getContext(),
+                R.anim.move);
+        animation.setAnimationListener(this);
+
         espWordTextView.startAnimation(animation);
     }
 
@@ -188,7 +194,6 @@ public class GameFragment extends Fragment implements Animation.AnimationListene
 
     }
 
-    //todo: decreaseRemainingLife trigger twice
     @Override
     public void onAnimationEnd(Animation animation) {
         viewModel.decreaseRemainingLife();
